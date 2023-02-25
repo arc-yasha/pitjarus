@@ -16,7 +16,4 @@ application/tulis_saya/*
 !application/logs/index.html
 !application/logs/.htaccess
 /vendor/
-/master-data/
-/uploads/
-/application/config/config.php
 /application/config/database.php
