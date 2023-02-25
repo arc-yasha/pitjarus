@@ -1,6 +1,13 @@
 <script>
 	const baseUrl = "<?php echo base_url(); ?>";
 
+	const notif = (message) => {
+		$('.notif').html(message);
+		setTimeout(() => {
+			$('.notif').html('');
+		}, 2000);
+	}
+
 	$('.dateFrom').datepicker({
 		format: 'dd-mm-yyyy',
 	});
@@ -47,6 +54,7 @@
 	});
 
 	const showChartAndTable = async (dataParams = '') => {
+		notif(`<b class="text-success">Mohon tunggu, data sedang diload...</b>`)
 		let options = {};
 		if (dataParams == '') {
 			options = {
@@ -67,6 +75,7 @@
 			.then((result) => {
 				showChart(result);
 				showTable(result);
+				notif(`<b class="text-success">Data berhasil diload...</b>`)
 			})
 	}
 
@@ -115,10 +124,7 @@
 			dataParams.append('dateTo', dateTo);
 			showChartAndTable(dataParams);
 		} else {
-			$('.notif').html(`<b>Mohon lengkapi semua inputan diatas...</b>`);
-			setTimeout(() => {
-				$('.notif').html('');
-			}, 2000);
+			notif(`<b class="text-danger">Mohon lengkapi semua inputan diatas...</b>`)
 		}
 	})
 

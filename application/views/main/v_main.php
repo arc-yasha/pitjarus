@@ -1,4 +1,8 @@
-<div class="container mb-5">
+<div class="container mb-5 mt-5">
+	<div class="d-flex justify-content-center mb-2">
+		<img src="<?=base_url()?>assets/images/logo_pitjarus_2020_10th.png" alt="logo" width="150px">
+	</div>
+	<h3 align="center">Web Developer Test</h3>
 	<div class="mt-5">
 		<div class="row">
 			<div class="col-md-3">
@@ -22,7 +26,7 @@
 			</div>
 		</div>
 
-		<div class="notif mt-2 d-flex justify-content-center justify-item-center text-danger"></div>
+		<div class="notif mt-2 d-flex justify-content-center justify-item-center"></div>
 	</div>
 	<hr>
 	<div class="mt-5">
