@@ -28,7 +28,7 @@ class Main extends CI_Controller {
 			$w_area_id = $this->input->post('area_id');
 			$w_dateFrom = date('Y-m-d', strtotime($this->input->post('dateFrom')));
 			$w_dateTo = date('Y-m-d', strtotime($this->input->post('dateTo')));
-		}
+		} 
 		
 		$total_rows_report_product = $this->Main_m->get_report_product()->num_rows();
 		if (!$isSearch) {
@@ -41,10 +41,11 @@ class Main extends CI_Controller {
 		$store_by_areas_percentage = [];
 		foreach ($areas->result() as $area) {
 			if (!$isSearch) {
-				$compliance = $this->Main_m->get_compliance_by_area($area->area_id)->num_rows();
+				$compliance = $this->Main_m->get_compliance_by_area($area->area_id)->row();
 			}else{
-				$compliance = $this->Main_m->get_compliance_by_area($area->area_id, $w_dateFrom, $w_dateTo)->num_rows();
+				$compliance = $this->Main_m->get_compliance_by_area($area->area_id, $w_dateFrom, $w_dateTo)->row();
 			}
+			$compliance = $compliance->compliance;
 			$calculation_nilai = ($compliance/$total_rows_report_product)*100;
 			array_push($store_by_areas_percentage, $calculation_nilai);
 		}
@@ -56,16 +57,16 @@ class Main extends CI_Controller {
 			$compliance_area_brand_temp = [];
 			foreach ($areas->result() as $area) {
 				if (!$isSearch) {
-					$compliance = $this->Main_m->get_compliance_by_area_brand($area->area_id,$brand->brand_id)->num_rows();
+					$compliance = $this->Main_m->get_compliance_by_area_brand($area->area_id,$brand->brand_id)->row();
 				}else{
-					$compliance = $this->Main_m->get_compliance_by_area_brand($area->area_id,$brand->brand_id, $w_dateFrom, $w_dateTo)->num_rows();
+					$compliance = $this->Main_m->get_compliance_by_area_brand($area->area_id,$brand->brand_id, $w_dateFrom, $w_dateTo)->row();
 				}
+				$compliance = $compliance->compliance;
 				$calculation_nilai = ($compliance/$total_rows_report_product)*100;
 				array_push($compliance_area_brand_temp, $calculation_nilai);
 			}
 			array_push($compliance_area_brand, $compliance_area_brand_temp);
 		}
-
 		header("Content-Type: application/json");
 		echo json_encode([
 			'areas' => $areas->result(),

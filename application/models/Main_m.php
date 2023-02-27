@@ -25,7 +25,7 @@ class Main_m extends CI_Model {
 
     public function get_compliance_by_area($area_id, $dateFrom='', $dateTo='')
     {
-        $this->db->select('*');
+        $this->db->select_sum('report_product.compliance');
 		$this->db->join('store_area','store_area.area_id = store.area_id','left');
 		$this->db->join('report_product','report_product.store_id = store.store_id','left');
 		$this->db->where(['store_area.area_id'=>$area_id]);
@@ -38,7 +38,7 @@ class Main_m extends CI_Model {
 
     public function get_compliance_by_area_brand($area_id,$brand_id, $dateFrom='', $dateTo='')
     {
-        $this->db->select('*');
+        $this->db->select_sum('report_product.compliance');
         $this->db->join('store','store.store_id = report_product.store_id','left');
         $this->db->join('store_area','store_area.area_id = store.area_id','left');
         $this->db->join('product','product.product_id = report_product.product_id','left');
